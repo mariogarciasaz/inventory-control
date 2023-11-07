@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+
+{% block titlewebsite %}Nueva Consigna{% endblock %}
+
+{% block headertitle %}Consignas{% endblock %}
+
+
+{% block content %}
+<div class="card--container">
+    <div class="card--wrapper">
+        <h2>Nueva Consigna</h2>
+    </div>
+</div>
+<br>
+<div class="card--container">
+    <div class="card--wrapper">
+        <form method="post" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="id_client_id" class="form-label">Cliente</label>
+                <br>
+                {{ form.client }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_product" class="form-label">Producto</label>
+                <br>
+                {{ form.product }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_cantidad_enviada" class="form-label">Cantidad Enviada</label>
+                <br>
+                {{ form.cantidad_enviada }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_cantidad_vendida" class="form-label">Cantidad Vendida</label>
+                <br>
+                {{ form.cantidad_vendida }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_cantidad_retirada" class="form-label">Cantidad Retirada</label>
+                <br>
+                {{ form.cantidad_retirada }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_cantidad_retirada" class="form-label">Fecha</label>
+                <br>
+                {{ form.start_date }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_total_deuda" class="form-label">Total Deuda</label>
+                <br>
+                {{ form.total_deuda }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_total_deuda" class="form-label">Pagado</label>
+                <br>
+                {{ form.paid }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    form input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    form select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block titlewebsite %}Nuevo Cliente{% endblock %}
+
+{% block headertitle %}Clientes{% endblock %}
+
+
+{% block content %}
+<div class="card--container">
+    <div class="card--wrapper">
+        <h2>Nuevo Cliente</h2>
+    </div>
+</div>
+<br>
+<div class="card--container">
+    <div class="card--wrapper">
+        <form method="post" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="id_fullname" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="fullname">
+            </div>
+            <div class="col-md-6">
+                <label for="id_email" class="form-label">Email</label>
+                <input type="text" class="form-control" name="email">
+            </div>
+            <div class="col-md-6">
+                <label for="id_phone" class="form-label">Telefono</label>
+                <input type="text" class="form-control" name="phone">
+            </div>
+            <div class="col-md-6">
+                <label for="id_address" class="form-label">Direccion</label>
+                <input type="text" class="form-control" name="address">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block titlewebsite %}Nuevo Cliente{% endblock %}
+
+{% block headertitle %}Clientes{% endblock %}
+
+
+{% block content %}
+<div class="card--container">
+    <div class="card--wrapper">
+        <h2>Editar Cliente {{ client.fullname }}</h2>
+    </div>
+</div>
+<br>
+<div class="card--container">
+    <div class="card--wrapper">
+        <form method="post" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="id_fullname" class="form-label">Nombre</label>
+                <br>
+                <td>{{ form.fullname }}</td>
+            </div>
+            <div class="col-md-6">
+                <label for="id_email" class="form-label">Email</label>
+                <br>
+                <td>{{ form.email }}</td>
+            </div>
+            <div class="col-md-6">
+                <label for="id_phone" class="form-label">Telefono</label>
+                <br>
+                <td>{{ form.phone }}</td>
+            </div>
+            <div class="col-md-6">
+                <label for="id_address" class="form-label">Direccion</label>
+                <br>
+                <td>{{ form.address }}</td>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="col-12">
+                <br>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    form input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
