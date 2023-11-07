@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+
+
+{% block titlewebsite %}Consignas{% endblock %}
+
+{% block headertitle %}Consignas{% endblock %}
+
+
+{% block content %}
+<div class="card--container">
+    <div class="card--wrapper">
+        <div class="row">
+            <div class="col-sm-6 mb-2">
+                <div class="clients--card">
+                    <div class="clients--header">
+                        <div class="clients">
+                            <span class="clients--title">
+                                <i class="fa-solid fa-users"></i> Total Consignas:<span class="clients--number">
+                                    {{ all_clientsdata }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="card--container">
+    <button type="button" class="btn btn-success" style="width: 200px; height: 50px;">
+        <a href="{% url 'clientsdata:generate_excel_report_allclients' %}" style="color:white"><i class="fa-solid fa-book"></i> Generar Reporte</a>
+    </button>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="row" style="text-align: center;">Cliente</th>
+                    <th scope="row" style="text-align: center;">Producto</th>
+                    <th scope="row" style="text-align: center;">Cantidad Enviada</th>
+                    <th scope="row" style="text-align: center;">Cantidad Vendida</th>
+                    <th scope="row" style="text-align: center;">Cantidad Retirada</th>
+                    <th scope="row" style="text-align: center;">Fecha</th>
+                    <th scope="row" style="text-align: center;">Pagada</th>
+                    <th scope="row" style="text-align: center;">Total Deuda</th>
+                    <th scope="row" style="text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for clientdata in clientsdata %}
+            <tr>
+                <td style="text-align: center;">{{ clientdata.client.fullname }}</td>
+                <td style="text-align: center;">{{ clientdata.product }}</td>
+                <td style="text-align: center;">{{ clientdata.cantidad_enviada }}</td>
+                <td style="text-align: center;">{{ clientdata.cantidad_vendida }}</td>
+                <td style="text-align: center;">{{ clientdata.cantidad_retirada }}</td>
+                <td style="text-align: center;">{{ clientdata.start_date }}</td>
+                {% if clientdata.paid is True %}
+                    <td style="text-align: center;">Si</td>
+                {% endif %}
+                {% if clientdata.paid is False %}
+                    <td style="text-align: center;">No</td>
+                {% endif %}
+                <td style="text-align: center;">{{ clientdata.total_deuda }} $</td>
+                <td style="text-align: center;">
+                    <a href="{% url 'clientsdata:UpdateClientData' clientdata.id %}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="{% url 'clientsdata:DeleteClientData' clientdata.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" style="text-align: center;">No se encontraron consignas para este cliente.</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </form>
+        <div class="pagination-container">
+            <button id="prev-page-btn" class="btn btn-secondary btn-sm">Previous</button>
+            <button id="next-page-btn" class="btn btn-secondary btn-sm">Next</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

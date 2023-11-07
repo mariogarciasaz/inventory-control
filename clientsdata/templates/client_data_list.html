@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block titlewebsite %}Clientes{% endblock %}
+
+{% block headertitle %}Clientes{% endblock %}
+
+{% block content %}
+<div class="card--container">
+    <div class="card--wrapper">
+        <div class="row">
+            <div class="col-sm-6 mb-2">
+                <div class="clients--card">
+                    <div class="clients--header">
+                        <div class="clients">
+                            <span class="clients--title">
+                                <i class="fa-solid fa-users"></i> Total Consignas:<span class="clients--number">
+                                    {{ client_data_list_count }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-2">
+                <div class="clients--card">
+                    <div class="clients--header">
+                        <div class="clients">
+                            <span class="clients--title">
+                                <i class="fa-solid fa-users"></i> Consignas Pendientes:<span class="clients--number">
+                                    {{ total_without_pay }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-2">
+                <div class="clients--card">
+                    <div class="clients--header">
+                        <div class="clients">
+                            <span class="clients--title">
+                                <i class="fa-solid fa-users"></i> Deuda sin pagar:<span class="clients--number">
+                                    {{ total_debt_without_pay }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-2">
+                <div class="clients--card">
+                    <div class="clients--header">
+                        <div class="clients">
+                            <span class="clients--title">
+                                <i class="fa-solid fa-dollar-sign"></i> Total Facturado:<span class="clients--number">
+                                    {{ client_data_amount_total }} $
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="card--container">
+    <h5>Cliente:</h5>
+    <table class="table table-borderless">
+        
+        <thead>
+            <tr>
+                <th scope="row" style="text-align: center; font-size: small;">Nombre</th>
+                <th scope="row" style="text-align: center; font-size: small;">Email</th>
+                <th scope="row" style="text-align: center; font-size: small;">Telefono</th>
+                <th scope="row" style="text-align: center; font-size: small;">Direccion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: center; font-size: small;">{{ client_context.fullname }}</td>
+                <td style="text-align: center; font-size: small;">{{ client_context.email }}</td>
+                <td style="text-align: center; font-size: small;">{{ client_context.phone }}</td>
+                <td style="text-align: center; font-size: small;">{{ client_context.address }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="card--container">
+    <h3>Datos del Cliente:</h3>
+    <br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-success" style="width: 200px; height: 50px;">
+            <a href="{% url 'clientsdata:AddClientData' client_context.id %}" style="color:white"><i class="fa-solid fa-plus"></i>Agregar</a>
+        </button>
+        <form method="GET" action="{% url 'clientsdata:ClientsData' %}">
+            <div class="search--box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search" name="search" />
+            </div>
+        </form>
+        <button type="button" class="btn btn-success" style="width: 200px; height: 50px;">
+            <a href="{% url 'clientsdata:generate_report_client' client_context.id %}" style="color:white"><i class="fa-solid fa-book"></i> Generar Reporte</a>
+        </button>
+    </div>
+    <br>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th scope="row" style="text-align: center;">Producto</th>
+                <th scope="row" style="text-align: center;">Cantidad Enviada</th>
+                <th scope="row" style="text-align: center;">Cantidad Vendida</th>
+                <th scope="row" style="text-align: center;">Cantidad Retirada</th>
+                <th scope="row" style="text-align: center;">Fecha</th>
+                <th scope="row" style="text-align: center;">Total Deuda</th>
+                <th scope="row" style="text-align: center;">Pagada</th>
+                <th scope="row" style="text-align: center;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cd in client_data_list %}
+            <tr>
+                <td style="text-align: center;">{{ cd.product }}</td>
+                <td style="text-align: center;">{{ cd.cantidad_enviada }}</td>
+                <td style="text-align: center;">{{ cd.cantidad_vendida }}</td>
+                <td style="text-align: center;">{{ cd.cantidad_retirada }}</td>
+                <td style="text-align: center;">{{ cd.start_date }}</td>
+                <td style="text-align: center;">{{ cd.total_deuda }} $</td>
+                {% if cd.paid is False %}
+                    <td style="text-align: center;">No</td>
+                {% else %}
+                {% endif %}
+                {% if cd.paid is True %}
+                    <td style="text-align: center;">Si</td>
+                {% else %}
+                {% endif %}
+                <td style="text-align: center;">
+                    <a href="{% url 'clientsdata:UpdateClientData' cd.id %}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="{% url 'clientsdata:DeleteClientData' cd.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" style="text-align: center;">No se encontraron consignas para este cliente.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination-container">
+        <button id="prev-page-btn" class="btn btn-secondary btn-sm">Previous</button>
+        <button id="next-page-btn" class="btn btn-secondary btn-sm">Next</button>
+    </div>
+</div>
+
+{% endblock %}
