@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block titlewebsite %}Eliminar Consigna{% endblock %}
+
+{% block headertitle %}Consignas{% endblock %}
+
+
+{% block content %}
+<div class="card--container">
+    <div class="card--wrapper">
+        <h2>Eliminar Consigna</h2>
+    </div>
+</div>
+<br>
+<div class="card--container">
+    <div class="card--wrapper">
+        <form method="post" class="row g-3">
+            {% csrf_token %}
+            <p>¿Deseas eliminar la consigna "{{ product.name }}" del cliente "{{ client.fullname }}"?
+                <br>
+                <br>
+                <button class="btn btn-success" type="submit" style="text-decoration: underline;">Si, eliminar</button>
+                <button class="btn btn-danger" type="reset"><a href="{% url 'clientsdata:ClientsData' %}" style="color: white; text">No, Cancelar</a></button>
+                </p>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

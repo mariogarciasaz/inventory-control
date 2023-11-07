@@ -1,0 +1,73 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}" >
+    <title>Login | TopCauchos</title>
+</head>
+<body>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="contenedor">
+        <div class="formulario">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    <h1>Iniciar Sesion</h1>
+                </div>
+                <br>
+                <br> 
+                <br> 
+                <img class="logo" src="{% static 'img/LOGO_TOPCAUCHOS.png' %}" alt="Logo" width="250" height="100" style="align-items: center;">
+                <br> 
+                <br> 
+                <br>
+                <br> 
+                <br> 
+                <br>
+                    <div>
+                        <label for="username">Username: </label>
+                        {{ form.username }}
+                    </div>
+                    <br>
+                    <div>
+                        <label for="password">Password: </label>
+                        {{ form.password }}
+                    </div>
+                <br> 
+                <br>
+                <br>
+                <div class="button-container">
+                    <button class="Example-btn7" type="submit">Login</button>
+                </div>
+                <br> 
+                <br> 
+                <br> 
+                <br> 
+                <br> 
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

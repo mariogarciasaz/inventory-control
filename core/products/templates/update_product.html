@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block titlewebsite %}Nuevo Producto{% endblock %}
+
+{% block headertitle %}Productos{% endblock %}
+
+
+{% block content %}
+<div class="card--container">
+    <div class="card--wrapper">
+        <h2>Editar Producto {{ product.name }}</h2>
+    </div>
+</div>
+<br>
+<div class="card--container">
+    <div class="card--wrapper">
+        <form method="post" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="id_name" class="form-label">Nombre</label>
+                <br>
+                <td>{{ form.name }}</td>
+            </div>
+            <div class="col-md-6">
+                <label for="id_description" class="form-label">Descripcion</label>
+                <br>
+                <td>{{ form.description }}</td>
+            </div>
+            <div class="col-md-6">
+                <label for="id_price" class="form-label">Precio</label>
+                <br>
+                <td>{{ form.price }}</td>
+            </div>
+            <div class="col-md-6">
+                <label for="id_quantity" class="form-label">Cantidad</label>
+                <br>
+                <td>{{ form.quantity }}</td>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="col-12">
+                <br>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    form input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
