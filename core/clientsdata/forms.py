@@ -14,6 +14,19 @@ class ClientDataForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ClientDataForm, self).__init__(*args, **kwargs)
-
-        # Añade el atributo 'disabled' al widget del campo 'total_deuda'
         self.fields['total_deuda'].widget.attrs['disabled'] = True
+
+    def clean(self):
+        cleaned_data = super().clean()
+        product = cleaned_data.get('product')
+        cantidad_enviada = cleaned_data.get('cantidad_enviada')
+
+        if product and cantidad_enviada is not None:
+            try:
+                product = Product.objects.get(pk=product.pk)
+                if product.quantity < cantidad_enviada:
+                    self.add_error('cantidad_enviada', 'No hay suficiente stock para este producto.')
+            except Product.DoesNotExist:
+                pass
+
+        return cleaned_data

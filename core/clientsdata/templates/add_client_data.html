@@ -17,6 +17,7 @@
     <div class="card--wrapper">
         <form method="post" class="row g-3">
             {% csrf_token %}
+            {{ form.errors.cantidad_enviada }}
             <div class="col-md-6">
                 <label for="id_client_id" class="form-label">Cliente</label>
                 <br>
