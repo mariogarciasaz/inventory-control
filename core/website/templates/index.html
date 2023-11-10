@@ -201,70 +201,101 @@ Highcharts.chart('sales', {
         type: 'column'
     },
     title: {
-        text: 'Ventas Por Mes',
+        align: 'center',
+        text: 'Total Ventas anuales'
     },
     subtitle: {
+        align: 'left',
         text: ''
     },
-    xAxis: {
-        type: 'category',
-        labels: {
-            rotation: -45,
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
+    accessibility: {
+        announceNewData: {
+            enabled: true
         }
     },
+    xAxis: {
+        type: 'category'
+    },
     yAxis: {
-        min: 0,
         title: {
-            text: 'Ganancias $'
+            text: 'Total $'
         }
+
     },
     legend: {
         enabled: false
     },
-    tooltip: {
-        pointFormat: '<b>{point.y:.1f} $</b>'
-    },
-    series: [{
-        name: 'Population',
-        colors: [
-            '#9b20d9', '#9215ac', '#861ec9', '#7a17e6', '#7010f9', '#691af3',
-            '#6225ed', '#5b30e7', '#533be1', '#4c46db', '#4551d5', '#3e5ccf',
-            '#3667c9', '#2f72c3', '#277dbd', '#1f88b7', '#1693b1', '#0a9eaa',
-            '#03c69b',  '#00f194'
-        ],
-        colorByPoint: true,
-        groupPadding: 0,
-        data: [
-            ['Enero', {{ total_january }}],
-            ['febrero', {{ total_february }}],
-            ['Marzo', {{ total_march }}],
-            ['Abril', {{ total_april }}],
-            ['Mayo', {{ total_may }}],
-            ['Junio', {{ total_june }}],
-            ['Julio', {{ total_july }}],
-            ['Agosto', {{ total_august }}],
-            ['Septiembre', {{ total_september }}],
-            ['Octubre', {{ total_october }}],
-            ['Noviembre', {{ total_november }}],
-            ['Diciembre', {{ total_december }}]
-        ],
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y:.2f}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}$'
             }
         }
-    }]
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}$</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: 'Browsers',
+            colorByPoint: true,
+            data: [
+                {
+                    name: 'Enero',
+                    y: {{ total_january }}
+                },
+                {
+                    name: 'Febrero',
+                    y: {{ total_february }}
+                },
+                {
+                    name: 'Marzo',
+                    y: {{ total_march }}
+                },
+                {
+                    name: 'Abril',
+                    y: {{ total_april }}
+                },
+                {
+                    name: 'Mayo',
+                    y: {{ total_may }}
+                },
+                {
+                    name: 'Junio',
+                    y: {{ total_june }}
+                },
+                {
+                    name: 'Julio',
+                    y: {{ total_july }}
+                },
+                {
+                    name: 'Agosto',
+                    y: {{ total_august }}
+                },
+                {
+                    name: 'Septiembre',
+                    y: {{ total_september }}
+                },
+                {
+                    name: 'Octubre',
+                    y: {{ total_october }}
+                },
+                {
+                    name: 'Noviembre',
+                    y: {{ total_november }}
+                },
+                {
+                    name: 'Diciembre',
+                    y: {{ total_december }}
+                }
+            ]
+        }
+    ],
 });
 
 </script>
