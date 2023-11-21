@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-ef%*=d446r*z654q(f2)x_(2a&k*r1d78j525tf=$xszm=*iit
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inventorycontrol.onrender.com']
+ALLOWED_HOSTS = []
 
+LOGIN_URL = 'website:login'
 
 # Application definition
 
@@ -41,12 +42,11 @@ INSTALLED_APPS = [
     'clients',
     'products',
     'website',
-    'clientsdata'
+    'clientsdata',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,8 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'staticfiles'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 STATICFILES_DIRS = [
     BASE_DIR /'static',
 ]
@@ -135,4 +134,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-SESSION_COOKIE_AGE = 3600

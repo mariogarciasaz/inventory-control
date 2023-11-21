@@ -94,22 +94,51 @@
 </div>
 <br>
 <div class="card--container">
-    <h3>Datos del Cliente:</h3>
+    <h3>Consignas de {{ client_context.fullname }}:</h3>
     <br>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-success" style="width: 200px; height: 50px;">
-            <a href="{% url 'clientsdata:AddClientData' client_context.id %}" style="color:white"><i class="fa-solid fa-plus"></i>Agregar</a>
-        </button>
-        <form method="GET" action="{% url 'clientsdata:ClientsData' %}">
-            <div class="search--box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search" name="search" />
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+            <div class="col-md-3 mb-2">
+                <button type="button" class="btn btn-success" style="width: 200px; height: 50px;">
+                    <a href="{% url 'clientsdata:AddClientData' client_context.id %}" style="color:white"><i class="fa-solid fa-plus"></i>Agregar</a>
+                </button>
             </div>
-        </form>
-        <button type="button" class="btn btn-success" style="width: 200px; height: 50px;">
-            <a href="{% url 'clientsdata:generate_report_client' client_context.id %}" style="color:white"><i class="fa-solid fa-book"></i> Generar Reporte</a>
-        </button>
+            <div class="col-md-3 mb-2">
+                <form method="GET" action="{% url 'clientsdata:ClientData' pk=client_context.id %}">
+                    <div class="search--box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search" name="search" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 mb-2">
+                <button type="button" class="btn btn-success" style="width: 200px; height: 50px;">
+                    <a href="{% url 'clientsdata:generate_report_client' client_context.id %}?start_date={{ request.GET.start_date }}" style="color:white"><i class="fa-solid fa-book"></i> Generar Reporte</a>
+                </button>
+            </div>
+            <div class="col-md-3 mb-2">
+                <form method="get" action="{% url 'clientsdata:ClientData' pk=client_context.id %}">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label for="start_date" style="text-align: center;">Selec. Año:</label>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <select name="start_date" id="start_date" class="form-control mr-2" style="height: 50px;">
+                                <option value="" {% if not year_filter %}selected{% endif %}>Todos</option>
+                                {% for year in unique_years %}
+                                    <option value="{{ year }}" {% if year_filter == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <button type="submit" class="btn btn-success" style="width: 200px; height: 50px;">Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+    
     <br>
     <table class="table table-borderless">
         <thead>
