@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'website:login'
 
 # Application definition
 
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     'clients',
     'products',
     'website',
-    'clientsdata'
+    'clientsdata',
 ]
 
 MIDDLEWARE = [
@@ -133,4 +134,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-SESSION_COOKIE_AGE = 3600
