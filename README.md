@@ -1,4 +1,4 @@
 # inventory-control
 
-user:admin 
+user:admin <br>
 pass: Drogofunko1
