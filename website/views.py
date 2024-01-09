@@ -118,8 +118,8 @@ class Index(LoginRequiredMixin, TemplateView):
 
     def sales_per_month(self, context):
 
-        year = datetime.datetime.now().year
-        all_sales = ClientData.objects.filter(start_date__year=year, paid=True)
+        #year = datetime.datetime.now().year
+        all_sales = ClientData.objects.filter(paid=True)
 
         january = []
         february = []
